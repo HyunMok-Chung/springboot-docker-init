@@ -68,8 +68,6 @@ public class ConnectionChecker {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         ConnectionChecker cc = new ConnectionChecker();
-        Map<String, String> env = getenv();
-        System.out.println(env.get("DB_PASSWORD"));
 //        cc.check();
 //        cc.add();
         cc.select();
