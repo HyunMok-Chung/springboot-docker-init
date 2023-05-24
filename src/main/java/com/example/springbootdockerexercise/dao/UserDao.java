@@ -7,23 +7,11 @@ import java.util.Map;
 
 import static java.lang.System.getenv;
 
-public abstract class UserDao {
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
-//    {
-//        Map<String, String> env = getenv();
-//        String dbHost = env.get("DB_HOST"); //DB_HOST=jdbc:mysql://localhost:3306/spring-db
-//        String dbUser = env.get("DB_USER");
-//        String dbPassword = env.get("DB_PASSWORD");
-//
-//        Class.forName("com.mysql.cj.jdbc.Driver");
-//        Connection conn = DriverManager.getConnection(
-//                dbHost, dbUser, dbPassword
-//        );
-//        return conn;
-//    }
+public class UserDao {
+    SimpleConnectionMaker connectionMaker = new SimpleConnectionMaker();
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection conn = getConnection();
+        Connection conn = connectionMaker.makeNewConnection();
 
         PreparedStatement pstmt = conn.prepareStatement("INSERT INTO users(id, name, password) VALUES (?, ?, ?)");
         pstmt.setString(1, user.getId());
@@ -37,7 +25,7 @@ public abstract class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection conn = getConnection();
+        Connection conn = connectionMaker.makeNewConnection();
 
         PreparedStatement pstmt = conn.prepareStatement("SELECT id, name, password FROM users WHERE id = ?");
         pstmt.setString(1, id);
@@ -58,17 +46,17 @@ public abstract class UserDao {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao userDao = new NUserDao();
+        UserDao userDao = new UserDao();
 
         // UserDao add(user);
-//        User user = new User();
-//        user.setId("4");
-//        user.setName("hyunmok3");
-//        user.setPassword("123459");
-//        userDao.add(user);
+        User user = new User();
+        user.setId("5");
+        user.setName("hyunmok5");
+        user.setPassword("1234589");
+        userDao.add(user);
 
         // UserDao get(user);
-        User selectedUser = userDao.get("4");
+        User selectedUser = userDao.get("5");
         System.out.println(selectedUser.getId());
         System.out.println(selectedUser.getName());
         System.out.println(selectedUser.getPassword());

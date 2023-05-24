@@ -7,12 +7,10 @@ import java.util.Map;
 
 import static java.lang.System.getenv;
 
-// abstract 클래스 구현체
-public class NUserDao extends UserDao {
-    @Override
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
+public class SimpleConnectionMaker {
+    public Connection makeNewConnection() throws ClassNotFoundException, SQLException {
         Map<String, String> env = getenv();
-        String dbHost = env.get("DB_HOST"); //DB_HOST=jdbc:mysql://localhost:3306/spring-db
+        String dbHost = env.get("DB_HOST");
         String dbUser = env.get("DB_USER");
         String dbPassword = env.get("DB_PASSWORD");
 
