@@ -59,14 +59,14 @@ public class UserDao {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         UserDao userDao = new UserDao();
         // UserDao add(user);
-//        User user = new User();
+        User user = new User();
 //        user.setId("3");
 //        user.setName("hyunmok2");
 //        user.setPassword("123456789");
 //        userDao.add(user);
 
         // UserDao get(user);
-        User selectedUser = userDao.get("3");
+        User selectedUser = userDao.get("1");
         System.out.println(selectedUser.getId());
         System.out.println(selectedUser.getName());
         System.out.println(selectedUser.getPassword());
