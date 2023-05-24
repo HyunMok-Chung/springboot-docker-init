@@ -3,15 +3,16 @@ package com.example.springbootdockerexercise.dao;
 import com.example.springbootdockerexercise.domain.User;
 
 import java.sql.*;
-import java.util.Map;
-
-import static java.lang.System.getenv;
 
 public class UserDao {
-    SimpleConnectionMaker connectionMaker = new SimpleConnectionMaker();
+    ConnectionMaker connectionMaker;
+
+    public UserDao() {
+        this.connectionMaker = new DConnectionMaker();
+    }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection conn = connectionMaker.makeNewConnection();
+        Connection conn = connectionMaker.makeConnection();
 
         PreparedStatement pstmt = conn.prepareStatement("INSERT INTO users(id, name, password) VALUES (?, ?, ?)");
         pstmt.setString(1, user.getId());
@@ -25,7 +26,7 @@ public class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection conn = connectionMaker.makeNewConnection();
+        Connection conn = connectionMaker.makeConnection();
 
         PreparedStatement pstmt = conn.prepareStatement("SELECT id, name, password FROM users WHERE id = ?");
         pstmt.setString(1, id);
@@ -50,13 +51,13 @@ public class UserDao {
 
         // UserDao add(user);
         User user = new User();
-        user.setId("5");
-        user.setName("hyunmok5");
+        user.setId("6");
+        user.setName("hyunmok6");
         user.setPassword("1234589");
         userDao.add(user);
 
         // UserDao get(user);
-        User selectedUser = userDao.get("5");
+        User selectedUser = userDao.get("6");
         System.out.println(selectedUser.getId());
         System.out.println(selectedUser.getName());
         System.out.println(selectedUser.getPassword());
